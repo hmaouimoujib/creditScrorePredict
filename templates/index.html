@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>credit scoring</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  
+</head>
+
+<body>
+ <div class="login">
+	<h1>simulation de votre crédit</h1>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form id="submitForm" onsubmit="return validateForm();" action="{{ url_for('predict')}}"method="post">
+        <select name="ENSEIGNEMENT" required="required">
+            <option value="0">Secondaire Long</option>
+            <option value="1">Primaire</option>
+            <option value="2">Enseignement Moyen</option>
+            <option value="3">Enseignement Superieur</option>
+            <option value="4">Enseignement de Base</option>
+            <option value="5">Secondaire Professionnel</option>
+            <option value="6">Secondaire</option>
+            <option value="7">Illetré</option>
+            <option value="8">Universitaire Cycle Non Accompli</option>
+            <option value="9">Autre Niveau</option>
+        </select>
+        <select name="Genre" required="required">
+            <option value="0">Male</option>
+            <option value="1">Female</option>
+        </select>
+		<input id="ageClient" type="text" name="Age" placeholder="Age" required="required" />
+        <select name="STATUT" required="required">
+            <option value="0">RENOUVELANT</option>
+            <option value="1">nouveau</option>
+        </select>
+        <select name="Secteur activité" required="required">
+            <option value="0">S</option>
+            <option value="1">M</option>
+            <option value="2">B</option>
+            <option value="3">A</option>
+        </select>
+        <select name="Civilité du Représentant" required="required">
+            <option value="0">Marié</option>
+            <option value="1">Célibataire</option>
+            <option value="2">Divorcé</option>
+            <option value="3">Veuf</option>
+        </select>
+
+        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+    </form>
+
+   {{ prediction_text }}
+<script>
+    function validateForm(){
+        let ageClientValue = document.getElementById('ageClient').value;
+        result = true;
+        if (ageClientValue > 100 || ageClientValue < 0){
+            alert('age should be between 0 - 100 ');
+            result = false;
+        }
+
+        return result;
+    }
+</script>
+ </div>
+
+
+</body>
+</html>
